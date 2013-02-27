@@ -1,0 +1,25 @@
+module Face
+  module Client
+    module Recognition
+      def faces_detect(opts={})
+        opts.assert_valid_keys(:urls, :file, :detector, :attributes, :callback, :callback_url)
+        make_request(:faces_detect, opts)
+      end
+
+      def faces_recognize(opts={})
+        opts.assert_valid_keys(:uids, :urls, :file, :namespace, :detector, :attributes, :callback, :callback_url, :multipart)
+        make_request(:faces_recognize, opts)
+      end
+
+      def faces_train(opts={})
+        opts.assert_valid_keys(:uids, :namespace, :callback, :callback_url)
+        make_request(:faces_train, opts)
+      end
+
+      def faces_status(opts={})
+        opts.assert_valid_keys(:uids, :namespace, :callback, :callback_url)
+        make_request(:faces_status, opts)
+      end
+    end
+  end
+end
