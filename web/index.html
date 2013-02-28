@@ -1,14 +1,35 @@
 <html>
 	<head>
 		<title>Open Library</title>
+		<link rel="stylesheet" href="css/application.css" />
 		<script src="scripts/jquery-1.8.3.min.js" type="text/javascript"charset="utf-8" async defer></script>
 		<script src="scripts/ccv.js" type="text/javascript" charset="utf-8" async defer></script>
 		<script src="scripts/face.js" type="text/javascript" charset="utf-8" async defer></script>
-		<script src="scripts/application.js" type="text/javascript"></script>
+		<script src="scripts/knockout-2.2.1.js" type="text/javascript" defer="defer"></script>
+		<script src="scripts/application.js" type="text/javascript" defer="defer"></script>
 	</head>
 	<body>
-		<canvas id='canvas' width="200" height="160" class="scale"></canvas>
-		<video id="video" width="200" height="160" autoplay></video>
-		<div id='identifiedUser' />
+		<div class="page container">
+			<div class="column33">
+				<video id="video" width="200" height="160" autoplay class="scale"></video>
+				<canvas id='canvas' width="200" height="160" class="scale"></canvas>
+				<div id='identifiedUser'></div>
+			</div>
+			<div class="column66">
+				<fieldset data-bind="with: userData">
+					<legend>Books currently held</legend>
+					<div data-bind="foreach: book">
+						<div>
+							Title <div data-bind="text: title"></div>
+							Author <p data-bind="text: author"></p>
+							ISBN <p data-bind="text: isbn"></p>
+						</div>
+						<div>
+							<img data-bind="attr: {src: photo_remote_url}"/>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		<div>	
 	</body>
 </html>

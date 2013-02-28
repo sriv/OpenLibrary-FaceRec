@@ -1,0 +1,30 @@
+body
+{
+	background-color: #DDD;
+}
+
+.container
+{
+	width: 1000px;
+	height: 600px;
+	padding: 5px 5px 5px 5px;	
+}
+
+.column33
+{
+	width: 33%;
+	padding-right: 5px;
+}
+
+.column66
+{
+	width: 66%;
+}
+
+.scale
+{
+	width: 400px;
+	height: 320px;
+	padding: 5px 5px 5px 5px;
+	border-radius: 15px;
+}
