@@ -10,22 +10,27 @@
 	</head>
 	<body>
 		<div class="page container">
-			<div class="column33">
+			<div class="column330">
 				<video id="video" width="200" height="160" autoplay class="scale"></video>
 				<canvas id='canvas' width="200" height="160" class="scale"></canvas>
-				<div id='identifiedUser'></div>
+				<div id='identifiedUser' data-bind="with: userData">
+					Welcome <strong data-bind="text: full_name"></strong>!
+				</div>
 			</div>
-			<div class="column66">
+			<div class="column660">
 				<fieldset data-bind="with: userData">
 					<legend>Books currently held</legend>
-					<div data-bind="foreach: book">
-						<div>
-							Title <div data-bind="text: title"></div>
-							Author <p data-bind="text: author"></p>
-							ISBN <p data-bind="text: isbn"></p>
-						</div>
-						<div>
-							<img data-bind="attr: {src: photo_remote_url}"/>
+					<!--TODO - No record found handle -->
+					<div class="book_info" data-bind="foreach: book">
+						<div class="book_item">
+							<div class="column200">
+								<strong>Title</strong>&nbsp;<span data-bind="text: title"></span><br/>
+								<strong>Author</strong>&nbsp;<span data-bind="text: author"></span><br/>
+								<strong>ISBN</strong>&nbsp;<span data-bind="text: isbn"></span>
+							</div>
+							<div class="column100">
+								<img data-bind="attr: {src: photo_remote_url}"/>
+							</div>
 						</div>
 					</div>
 				</fieldset>

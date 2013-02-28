@@ -5,20 +5,21 @@ body
 
 .container
 {
-	width: 1000px;
+	width: 1200px;
 	height: 600px;
-	padding: 5px 5px 5px 5px;	
+	margin:  5px 5px 5px 5px;
 }
 
-.column33
+.column330
 {
-	width: 33%;
-	padding-right: 5px;
+	width: 420px;
+	float: left;
 }
 
-.column66
+.column660
 {
-	width: 66%;
+	width: 750px;
+	float: left;	
 }
 
 .scale
@@ -27,4 +28,32 @@ body
 	height: 320px;
 	padding: 5px 5px 5px 5px;
 	border-radius: 15px;
+}
+
+.book_info
+{
+	width: 700px;
+	margin: 5px 5px 5px 5px;
+	float: left;
+}
+
+.book_item
+{
+	border: 1px solid #444;
+	display: block;
+	width: 330px;
+}
+
+.column100
+{
+	width: 100px;
+	margin: 5px 5px 5px 5px;
+	float: right;
+}
+
+.column200
+{
+	width: 200px;
+	margin: 5px 5px 5px 5px;
+	float: left;
 }
