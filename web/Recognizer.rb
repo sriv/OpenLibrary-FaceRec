@@ -27,7 +27,7 @@ class Recognizer
 			if (detection_response['status'] == 'success')
 				user_id = [detection_response['photos'].first['tags'].first['uids'].first['uid']]
 				user = User.first(:sky_uid => user_id)
-				[200, {"Content-Type" => "text/plain"}, [user.to_json(:methods => [:book, :full_name])]]
+				[200, {"Content-Type" => "text/plain"}, [user.to_json(:methods => [:reserved_books, :full_name])]]
 			else
 				[404, {"Content-Type" => "text/plain"}, [@messages["unrecognized_user"]]]
 			end

@@ -5,7 +5,7 @@ class UserLookup
 		if @req.get?
 			user = User.first(:employee_id => @req.GET['employee_id'])
 			return [404, {"Content-Type" => "text/plain"}, [@messages["unrecognized_user"]]] if user.nil? 
-			[200, {"Content-Type" => "text/plain"}, [user.to_json(:methods => [:book, :full_name])]]
+			[200, {"Content-Type" => "text/plain"}, [user.to_json(:methods => [:reserved_books, :full_name])]]
 		else
 			[405, {"Content-Type" => "text/plain"}, [@messages[405]]]
 		end

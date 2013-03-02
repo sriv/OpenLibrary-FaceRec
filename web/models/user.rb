@@ -12,11 +12,13 @@ class User
   property :sky_uid, String, :required => true
   property :location, String
 
-  has n, :reservations, :state => :issued
+  has n, :reservations, :state => :issued, :order => [ :updated_on.desc ]
 
-  has n, :book, :through => :reservations
-  
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def reserved_books
+    reservations.map { |e| {:borrowed_on => e.updated_on, :book => e.book} }
   end
 end

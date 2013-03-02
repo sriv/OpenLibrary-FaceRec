@@ -21,24 +21,24 @@
 					Welcome <strong data-bind="text: full_name"></strong>!
 				</h3>
 				<div data-bind="with: userData" class="books">
-					<div data-bind="visible: book.length > 0">
+					<div data-bind="visible: reserved_books.length > 0">
 						<h4>Books currently held</h4>
 						<table>
 							<thead>
 								<tr><th>Title</th><th>Author</th><th>ISBN</th><th>Borrowed On</th><th></th></tr>
 							</thead>
-							<tbody data-bind="foreach: book">
+							<tbody data-bind="foreach: reserved_books">
 								<tr>
-									<td data-bind="text: title"></td>
-									<td data-bind="text: author"></td>
-									<td data-bind="text: isbn"></td>
-									<td data-bind="text: isbn"></td>
-									<td><img data-bind="visible: photo_remote_url!=null, attr: {src: photo_remote_url}" height="40" width="20"/></td>
+									<td data-bind="text: book.title"></td>
+									<td data-bind="text: book.author"></td>
+									<td data-bind="text: book.isbn"></td>
+									<td data-bind="text: borrowed_on"></td>
+									<td><img data-bind="visible: book.photo_remote_url!=null, attr: {src: book.photo_remote_url}" height="40" width="20"/></td>
 								</tr>
 							</tbody>
 						</table>	
 					</div>
-					<span data-bind="visible: book.length == 0">No books checked out by you.</span>
+					<span data-bind="visible: reserved_books.length == 0">No books checked out by you.</span>
 				</div>
 				<div>
 					<form data-bind="submit: reserveBook, with: userData">
