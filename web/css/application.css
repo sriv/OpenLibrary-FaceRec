@@ -40,34 +40,6 @@ body
     overflow:hidden;
 }
 
-.book_info
-{
-	width: 700px;
-	margin: 5px 5px 5px 5px;
-	float: left;
-}
-
-.book_item
-{
-	border: 1px solid #444;
-	display: block;
-	width: 330px;
-}
-
-.column100
-{
-	width: 100px;
-	margin: 5px 5px 5px 5px;
-	float: right;
-}
-
-.column200
-{
-	width: 200px;
-	margin: 5px 5px 5px 5px;
-	float: left;
-}
-
 #identifiedUser 
 {
 	text-align: center;
