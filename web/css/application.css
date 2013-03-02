@@ -1,6 +1,16 @@
+html
+{
+	background: #999; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFFFDD), to(#FFF)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #FFFFDD,  #FFF); /* for firefox 3.6+ */
+    min-height: 100%;
+}
+
 body
 {
-	background-color: #DDD;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	color: #039;
 }
 
 .container
@@ -25,9 +35,9 @@ body
 .scale
 {
 	width: 400px;
-	height: 320px;
-	padding: 5px 5px 5px 5px;
-	border-radius: 15px;
+	height: 300px;
+	box-shadow: 10px 10px 5px #888888;
+    overflow:hidden;
 }
 
 .book_info
@@ -57,3 +67,45 @@ body
 	margin: 5px 5px 5px 5px;
 	float: left;
 }
+
+#identifiedUser 
+{
+	text-align: center;
+}
+
+.books h4
+{
+	margin-left: 45px;
+	margin-bottom: -30px;
+}
+
+table
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	margin: 45px;
+	width: 800px;
+	text-align: left;
+	border-collapse: collapse;
+	border: 1px solid #69c;
+}
+table th
+{
+	padding: 12px 17px 12px 17px;
+	font-weight: normal;
+	font-size: 14px;
+	color: #039;
+	border-bottom: 1px dashed #69c;
+}
+table td
+{
+	padding: 7px 17px 7px 17px;
+	color: #669;
+	text-transform: capitalize;
+}
+table tbody tr:hover td
+{
+	color: #339;
+	background: #d0dafd;
+}
+

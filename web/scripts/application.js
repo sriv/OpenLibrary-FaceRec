@@ -4,8 +4,14 @@ function UserViewModel()
   var context;
   var canvas;
   self.userData = ko.observable();
+  self.validUser = ko.observable(true);
   self.setUserData = function(data){
     self.userData(JSON.parse(data));
+    self.validUser(true);
+  }
+  self.invalidUser = function(){
+    console.log("invalid user");
+    self.validUser(false);
   }
 
 
@@ -53,7 +59,8 @@ function UserViewModel()
     $.post("/recognize", {
         type: "data", 
         image: canvas.toDataURL("image/png")
-      }, self.setUserData);
+      }, self.setUserData)
+    .fail(self.invalidUser);
   };
 
   self.init();

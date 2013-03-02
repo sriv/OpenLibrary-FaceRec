@@ -11,29 +11,34 @@
 	<body>
 		<div class="page container">
 			<div class="column330">
-				<video id="video" width="200" height="160" autoplay class="scale"></video>
-				<canvas id='canvas' width="200" height="160" class="scale"></canvas>
-				<div id='identifiedUser' data-bind="with: userData">
-					Welcome <strong data-bind="text: full_name"></strong>!
-				</div>
+				<video id="video" autoplay class="scale"></video>
+				<canvas id='canvas' width="200" height="160" class="scale" style="display:none"></canvas>
 			</div>
 			<div class="column660">
-				<fieldset data-bind="with: userData">
-					<legend>Books currently held</legend>
-					<!--TODO - No record found handle -->
-					<div class="book_info" data-bind="foreach: book">
-						<div class="book_item">
-							<div class="column200">
-								<strong>Title</strong>&nbsp;<span data-bind="text: title"></span><br/>
-								<strong>Author</strong>&nbsp;<span data-bind="text: author"></span><br/>
-								<strong>ISBN</strong>&nbsp;<span data-bind="text: isbn"></span>
-							</div>
-							<div class="column100">
-								<img data-bind="attr: {src: photo_remote_url}"/>
-							</div>
-						</div>
+				<span data-bind="visible: !validUser()">User not identified.</span>
+				<h3 id='identifiedUser' data-bind="with: userData, visible: validUser">
+					Welcome <strong data-bind="text: full_name"></strong>!
+				</h3>
+				<div data-bind="with: userData" class="books">
+					<div data-bind="visible: book.length > 0">
+						<h4>Books currently held</h4>
+						<table>
+							<thead>
+								<tr><th>Title</th><th>Author</th><th>ISBN</th><th>Borrowed On</th><th></th></tr>
+							</thead>
+							<tbody data-bind="foreach: book">
+								<tr>
+									<td data-bind="text: title"></td>
+									<td data-bind="text: author"></td>
+									<td data-bind="text: isbn"></td>
+									<td data-bind="text: isbn"></td>
+									<td><img data-bind="visible: photo_remote_url!=null, attr: {src: photo_remote_url}" height="40" width="20"/></td>
+								</tr>
+							</tbody>
+						</table>	
 					</div>
-				</fieldset>
+					<span data-bind="visible: book.length == 0">No books checked out by you.</span>
+				</div>				
 			</div>
 		<div>	
 	</body>
