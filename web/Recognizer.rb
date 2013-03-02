@@ -7,10 +7,10 @@ require 'dm-serializer/to_json'
 class Recognizer
 	def initialize
 		@client = Face.get_client()
-		@user_ids = User.all(:location => 'chennai').map {|x| x.sky_uid }
 	end
 
 	def call(env)
+		user_ids = User.all(:location => 'chennai').map {|x| x.sky_uid }
 		@req = Rack::Request.new(env)
 		load_messages
 		if @req.post?
@@ -22,7 +22,7 @@ class Recognizer
 			ensure
 				file.close
 			end
-			detection_response = @client.faces_recognize(:file => File.open(file_path, 'rb'), :uids => @user_ids)
+			detection_response = @client.faces_recognize(:file => File.open(file_path, 'rb'), :uids => user_ids)
 			file.unlink
 			if (detection_response['status'] == 'success')
 				user_id = [detection_response['photos'].first['tags'].first['uids'].first['uid']]

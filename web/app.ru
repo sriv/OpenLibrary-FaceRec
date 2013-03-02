@@ -1,8 +1,8 @@
 require File.expand_path('../Recognizer.rb', __FILE__)
 require File.expand_path('../Reserver.rb', __FILE__)
+require File.expand_path('../UserLookup.rb', __FILE__)
 
 require 'net-http-spy'
-
 
 Net::HTTP.http_logger_options = {:body => true, :trace => true, :verbose => true}
 
@@ -20,6 +20,11 @@ map "/" do
 	map "/reserve" do
 		run Reserver.new
 	end
+
+end
+
+map "/user" do
+	run UserLookup.new
 end
 
 map "/scripts" do

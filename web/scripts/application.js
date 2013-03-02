@@ -65,11 +65,19 @@ function UserViewModel()
 
   self.reserveBook = function() {
     var isbnInput = $("#isbn");
+    var employee_id = isbnInput.data("employeeId");
     $(document).ajaxError(self.failureMessage);
     $.post("/reserve", {
         isbn: isbnInput[0].value,
-        employee_id: isbnInput.data("employeeId")
-      }, self.setSuccessMessage);
+        employee_id: employee_id,
+      }, self.reserveSuccessful(employee_id));
+  }
+
+  self.reserveSuccessful = function(employee_id) {
+    return function(message){
+      self.setSuccessMessage(message);
+      $.get("/user?employee_id=" + employee_id, self.setUserData)
+    };
   }
 
   self.notify = function (message, type) {
