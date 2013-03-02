@@ -1,4 +1,5 @@
 require File.expand_path('../Recognizer.rb', __FILE__)
+require File.expand_path('../Reserver.rb', __FILE__)
 
 require 'net-http-spy'
 
@@ -14,6 +15,10 @@ map "/" do
 
 	map "/recognize" do
 		run Recognizer.new
+	end
+
+	map "/reserve" do
+		run Reserver.new
 	end
 end
 

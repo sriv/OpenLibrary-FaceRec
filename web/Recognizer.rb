@@ -12,7 +12,7 @@ class Recognizer
 
 	def call(env)
 		@req = Rack::Request.new(env)
-
+		load_messages
 		if @req.post?
 			uridata = @req.POST['image'].split(',').pop
 			file = Tempfile.new(['user','.png'])
@@ -29,8 +29,17 @@ class Recognizer
 				user = User.first(:sky_uid => user_id)
 				[200, {"Content-Type" => "text/plain"}, [user.to_json(:methods => [:book, :full_name])]]
 			else
-				[404, {"Content-Type" => "text/plain"}, ['Person not found!']]
+				[404, {"Content-Type" => "text/plain"}, [@messages["unrecognized_user"]]]
 			end
+		else
+			[405, {"Content-Type" => "text/plain"}, [@messages[405]]]
 		end
+
+	end
+
+	private
+
+	def load_messages
+	  @messages = YAML::load(File.read(File.expand_path('config/en.yml','.')))
 	end
 end

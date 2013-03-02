@@ -2,3 +2,6 @@ issued: 'You can take the book along with you, please return the book as soon as
 returned: 'You can now put the book where it belongs'
 user_review: 'is the last person who read this book, contact him/her for more information/review about it.'
 first_person: 'According to my knowledge you will be the first one to read this book from this library. Enjoy your reading'
+405: 'Use of this verb is prohibited for this resource.'
+404: 'The resource you are looking for does not exist.'
+unrecognized_user: 'Person not found in the database! Please add this person and train photos.'

@@ -1,11 +1,13 @@
 <html>
 	<head>
 		<title>Open Library</title>
-		<link rel="stylesheet" href="css/application.css" />
+		<link rel="stylesheet" href="css/application.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="css/jquery.notifyBar.css" type="text/css" media="screen"  />
 		<script src="scripts/jquery-1.8.3.min.js" type="text/javascript"charset="utf-8" async defer></script>
 		<script src="scripts/ccv.js" type="text/javascript" charset="utf-8" async defer></script>
 		<script src="scripts/face.js" type="text/javascript" charset="utf-8" async defer></script>
 		<script src="scripts/knockout-2.2.1.js" type="text/javascript" defer="defer"></script>
+		<script src="scripts/jquery.notifyBar.js" type="text/javascript" defer="defer"></script>
 		<script src="scripts/application.js" type="text/javascript" defer="defer"></script>
 	</head>
 	<body>
@@ -15,7 +17,6 @@
 				<canvas id='canvas' width="200" height="160" class="scale" style="display:none"></canvas>
 			</div>
 			<div class="column660">
-				<span data-bind="visible: !validUser()">User not identified.</span>
 				<h3 id='identifiedUser' data-bind="with: userData, visible: validUser">
 					Welcome <strong data-bind="text: full_name"></strong>!
 				</h3>
@@ -38,7 +39,13 @@
 						</table>	
 					</div>
 					<span data-bind="visible: book.length == 0">No books checked out by you.</span>
-				</div>				
+				</div>
+				<div>
+					<form data-bind="submit: reserveBook, with: userData">
+						<input id="isbn" type="text" data-bind="attr: {'data-employee-id': employee_id}" />
+						<input type="submit" style="visibility: hidden;" />
+					</form>
+				</div>		
 			</div>
 		<div>	
 	</body>

@@ -1,3 +1,5 @@
+require 'wrest'
+
 class Book
   include DataMapper::Resource
 

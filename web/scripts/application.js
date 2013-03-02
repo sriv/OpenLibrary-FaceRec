@@ -9,20 +9,20 @@ function UserViewModel()
     self.userData(JSON.parse(data));
     self.validUser(true);
   }
-  self.invalidUser = function(){
-    console.log("invalid user");
+  self.invalidUser = function(message){
     self.validUser(false);
+    self.setErrorMessage(message);
   }
 
 
   self.init = function() {
     window.addEventListener("DOMContentLoaded", function() {
-    var video = document.getElementById("video"),
+    var video = $("#video")[0],
       videoObj = { "video": true },
       errorHandler = function(error) {
         console.log("Video capture error: ", error.code); 
       };
-      canvas = document.getElementById("canvas");
+      canvas = $("#canvas")[0];
       context = canvas.getContext("2d");
       context.fillStyle = "rgba(0, 0, 200, 0.5)";
       if(navigator.getUserMedia) { // Standard
@@ -62,6 +62,36 @@ function UserViewModel()
       }, self.setUserData)
     .fail(self.invalidUser);
   };
+
+  self.reserveBook = function() {
+    var isbnInput = $("#isbn");
+    $(document).ajaxError(self.failureMessage);
+    $.post("/reserve", {
+        isbn: isbnInput[0].value,
+        employee_id: isbnInput.data("employeeId")
+      }, self.setSuccessMessage);
+  }
+
+  self.notify = function (message, type) {
+    $.notifyBar({
+      html: message,
+      delay: 5000,
+      cls: type,
+      animationSpeed: "normal"
+    });  
+  }
+
+  self.failureMessage = function(event, jqxhr, settings, exception){
+    self.setErrorMessage(jqxhr.responseText);
+  }
+
+  self.setErrorMessage = function(message){
+    self.notify(message, "error");
+  }  
+
+  self.setSuccessMessage = function(message){
+    self.notify(message, "success");
+  }  
 
   self.init();
 }
