@@ -19,6 +19,6 @@ class User
   end
 
   def reserved_books
-    reservations.map { |e| {:borrowed_on => e.updated_on, :book => e.book} }
+    reservations.take(3).map { |e| {:borrowed_on => e.updated_on, :book => e.book} }
   end
 end

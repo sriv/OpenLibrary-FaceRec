@@ -1,14 +1,27 @@
 function UserViewModel()
 {
-  var self = this;
-  var context;
-  var canvas;
+  var self = this,
+  context,
+  canvas,
+  highlightClassNames = {'user': ['active',null,null], 'book': ['done','active',null], 'confirmation': ['done', 'done', 'active']},
+  sections = $("div.section");
+
+  self.getElement = function(elements, cssSelector) {
+    return $.grep(elements, function(element) { return $(element).hasClass(cssSelector); })[0];
+  };
+
+  self.bookEl = self.getElement(sections, "book");
+  self.userEl = self.getElement(sections, "user");
+  self.confirmationEl = self.getElement(sections, "confirmation");
+
   self.userData = ko.observable();
   self.validUser = ko.observable(true);
   self.setUserData = function(data){
     self.userData(JSON.parse(data));
     self.validUser(true);
+    self.focus(self.bookEl);
   }
+
   self.invalidUser = function(message){
     self.validUser(false);
     self.setErrorMessage(message);
@@ -71,6 +84,7 @@ function UserViewModel()
         isbn: isbnInput[0].value,
         employee_id: employee_id,
       }, self.reserveSuccessful(employee_id));
+    this.focus(confirmationEl);
   }
 
   self.reserveSuccessful = function(employee_id) {
@@ -100,6 +114,23 @@ function UserViewModel()
   self.setSuccessMessage = function(message){
     self.notify(message, "success");
   }  
+
+  self.highlightHelp = function() {
+    var currentSection = $('div.section:visible').attr("data-section-name");
+
+    var sectionClassNames = highlightClassNames[currentSection];
+    $("div.help .notes").each(function(index, element) {
+      $(element).removeClass('active done').addClass(sectionClassNames[index]);
+    });
+  }
+
+  self.focus = function(section) {
+    var deFocusedElements = [self.userEl, self.bookEl, self.confirmationEl].filter(function(element) { return element != section; });
+    deFocusedElements.forEach(function(element){ $(element).hide(); });
+    $(section).fadeIn();
+    self.highlightHelp();
+    $(section).find("input.barcode").focus();
+  };
 
   self.init();
 }

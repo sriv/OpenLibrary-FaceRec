@@ -34,3 +34,7 @@ end
 map "/css" do
 	run Rack::Directory.new(File.expand_path("./css"))
 end
+
+map "/img" do
+	run Rack::Directory.new(File.expand_path("./img"))
+end

@@ -1,0 +1,188 @@
+.clear { clear: both; }
+
+.open-library .brand { padding-right: 5px;}
+.brand:after { content: " -";}
+
+.tag-line {
+  display: inline-block;
+  padding-top: 10px;
+}
+
+.page.container .alert {
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.page.container .hero-unit.section { height: 300px; padding: 20px 40px;}
+
+.page.container .input {
+  opacity: 0;
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.book-info {
+  padding-top: 10px;
+  border-top: solid 1px black;
+}
+
+.book-info .title:before, .book-info .author:before {
+  display: inline-block;
+  width: 80px;
+}
+
+.book-info .title:before {
+  content: "Title :";
+}
+
+.book-info .author:before {
+  content: "Author :";
+}
+
+.book-info img { height: 160px; float: right; }
+.book-info p { padding-top: 10px;}
+
+.page.container .input .barcode {
+  font-size: 40px;
+  height: 40px;
+  width: 290px;
+}
+
+.footer {
+  border-top: 1px solid #E5E5E5;
+  padding: 35px 0px;
+  text-align: center;
+}
+
+.page.container { margin-top: 60px; }
+
+.help h2 { line-height: 72px; }
+
+.help .notes { opacity: 0.3; }
+.help .notes.active, .help .notes.done { opacity: 1; }
+.help .notes.active { -moz-animation: opaque 1s; -webkit-animation: opaque 1s;}
+
+.help .notes .well {
+  height: 200px;
+  padding: 10px 19px;
+}
+
+.help .title .icon {
+  float: right;
+  height: 72px;
+  width: 72px;
+}
+
+.help .active .title .icon {
+  background: url("../img/barcode.png") no-repeat right top;
+  -moz-animation: changeOpacity 1s;
+  -webkit-animation: changeOpacity 1s;
+  -moz-animation-iteration-count:infinite;
+  -webkit-animation-iteration-count:infinite;
+}
+
+@-moz-keyframes changeOpacity {
+  0%   {opacity:1;}
+  10%  {opacity:.9;}
+  20%  {opacity:.8;}
+  30%  {opacity:.7;}
+  40%  {opacity:.6;}
+  50%  {opacity:.5;}
+  60%  {opacity:.4;}
+  70%  {opacity:.3;}
+  80%  {opacity:.2;}
+  90%  {opacity:.1;}
+}
+@-webkit-keyframes changeOpacity {
+  0%   {opacity:1;}
+  10%  {opacity:.9;}
+  20%  {opacity:.8;}
+  30%  {opacity:.7;}
+  40%  {opacity:.6;}
+  50%  {opacity:.5;}
+  60%  {opacity:.4;}
+  70%  {opacity:.3;}
+  80%  {opacity:.2;}
+  90%  {opacity:.1;}
+}
+@-moz-keyframes opaque {
+  0%   {opacity:.1;}
+  10%  {opacity:.2;}
+  20%  {opacity:.3;}
+  30%  {opacity:.4;}
+  40%  {opacity:.5;}
+  50%  {opacity:.6;}
+  60%  {opacity:.7;}
+  70%  {opacity:.8;}
+  80%  {opacity:.9;}
+  90%  {opacity:1;}
+}
+@-webkit-keyframes opaque {
+  0%   {opacity:.1;}
+  10%  {opacity:.2;}
+  20%  {opacity:.3;}
+  30%  {opacity:.4;}
+  40%  {opacity:.5;}
+  50%  {opacity:.6;}
+  60%  {opacity:.7;}
+  70%  {opacity:.8;}
+  80%  {opacity:.9;}
+  90%  {opacity:1;}
+}
+
+.help .done .title .icon { background: url("../img/tick.png") no-repeat right top; }
+.help .confirmation.active .title .icon { background: url("../img/clock.png") no-repeat right top; }
+
+.scale
+{
+  width: 300px;
+  height: 225px;
+  box-shadow: 10px 10px 5px #888888;
+  overflow:hidden;
+  float: right;
+  margin-top: 20px;
+}
+
+.column330
+{
+  width: 33%;
+  float: left;
+}
+
+.column660
+{
+  width: 63%;
+  float: left;  
+  padding-left: 20px;
+}
+.instruction
+{
+  height: 250px;
+  margin-bottom: 10px;
+}
+table
+{
+  font-size: 12px;
+  width: 99%;
+  text-align: left;
+  border-collapse: collapse;
+  border: 1px solid;
+}
+table th
+{
+  padding: 12px 17px 12px 17px;
+  font-weight: normal;
+  font-size: 14px;
+  border-bottom: 1px dashed;
+}
+table td
+{
+  padding: 7px 17px 7px 17px;
+  text-transform: capitalize;
+}
+table tbody tr:hover td
+{
+  background: #dddddd;
+}
