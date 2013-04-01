@@ -14,11 +14,17 @@ class User
 
   has n, :reservations, :state => :issued, :order => [ :updated_on.desc ]
 
+  has n, :user_tags
+
   def full_name
     "#{first_name} #{last_name}"
   end
 
   def reserved_books
     reservations.take(3).map { |e| {:borrowed_on => e.updated_on, :book => e.book} }
+  end
+
+  def interests
+    user_tags.map { |t| t.tag.name}
   end
 end

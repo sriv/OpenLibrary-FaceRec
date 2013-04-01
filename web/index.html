@@ -51,6 +51,11 @@
 					</p>
 					<h4 data-bind="with: userData, visible: validUser">
 						Welcome <strong data-bind="text: full_name"></strong>!
+						<div>
+							<ul data-bind="interests">
+								<li data-bind="test: $data" />
+							</ul>
+						</div>
 					</h4>
 					<div data-bind="with: userData" class="books">
 						<div data-bind="visible: reserved_books.length > 0">
@@ -99,7 +104,7 @@
 										</h2>
 									</div>
 									<p>
-										Everyone is automatically entitled for Library access. Borrowing is free, but you must present your ID Card (with barcoded employee ID) to borrow books.
+										Everyone is automatically entitled for Library access. Borrowing is free, but the system must identiy you first. Please face the camera, and the system will try to recognize you!
 									</p>
 								</div>
 							</div>
