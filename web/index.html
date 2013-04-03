@@ -51,8 +51,8 @@
 					</p>
 					<h4 data-bind="with: userData, visible: validUser">
 						Welcome <strong data-bind="text: full_name"></strong>!
-						<div>
-							<ul data-bind="interests">
+						<div data-bind="visible: interests.length >0">
+							<ul data-bind="foreach: interests">
 								<li data-bind="test: $data" />
 							</ul>
 						</div>
@@ -78,7 +78,7 @@
 						<span data-bind="visible: reserved_books.length == 0">No books checked out by you.</span>
 					</div>
 					<div class="input">
-						<input type="text" class="barcode" id="isbn" data-bind="attr: {'data-employee-id': userData.employee_id}, change: reserveBook"/>
+						<input type="text" class="barcode" id="isbn" data-bind="event: {change: reserveBook}"/>
 					</div>
 				</div>
 				<div class="hero-unit section confirmation" data-section-name="confirmation" style="display:none">

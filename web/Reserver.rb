@@ -7,6 +7,8 @@ class Reserver
 			p @req.POST
 			load_user_and_book
 			load_messages
+			p @user
+			p @book
 			return [404, {"Content-Type" => "text/plain"}, [@messages[404]]] if @user.nil? || @book.nil?
 			criteria = {:user => @user, :book => @book, :state => :issued}
 			@reservation = get_reservation criteria
@@ -26,7 +28,7 @@ class Reserver
 	end
 
 	def load_user
-	  @user = User.first(:employee_id => @req.POST['employee_id'])
+	  @user = User.first(:employee_id => @req.POST['employeeId'])
 	end
 
 	def load_book

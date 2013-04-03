@@ -78,19 +78,20 @@ function UserViewModel()
 
   self.reserveBook = function() {
     var isbnInput = $("#isbn");
-    var employee_id = isbnInput.data("employeeId");
+    var employeeId = this.userData().employee_id; 
     $(document).ajaxError(self.failureMessage);
     $.post("/reserve", {
-        isbn: isbnInput[0].value,
-        employee_id: employee_id,
-      }, self.reserveSuccessful(employee_id));
-    this.focus(confirmationEl);
+        type: "data", 
+        employeeId: employeeId,
+        isbn: isbnInput[0].value
+      }, self.reserveSuccessful());
+    this.focus(this.confirmationEl);
   }
 
-  self.reserveSuccessful = function(employee_id) {
+  self.reserveSuccessful = function() {
     return function(message){
       self.setSuccessMessage(message);
-      $.get("/user?employee_id=" + employee_id, self.setUserData)
+      $.get("/user?employee_id=" + self.userdata().employee_id, self.setUserData)
     };
   }
 
