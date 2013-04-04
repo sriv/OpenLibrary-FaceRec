@@ -5,6 +5,8 @@ function UserViewModel()
   canvas,
   highlightClassNames = {'user': ['active',null,null], 'book': ['done','active',null], 'confirmation': ['done', 'done', 'active']},
   sections = $("div.section");
+  var maxWaitTime = 5;
+  var waitTime = 0;
 
   self.getElement = function(elements, cssSelector) {
     return $.grep(elements, function(element) { return $(element).hasClass(cssSelector); })[0];
@@ -19,7 +21,6 @@ function UserViewModel()
   self.setUserData = function(data){
     self.userData(JSON.parse(data));
     self.validUser(true);
-    self.focus(self.bookEl);
   }
 
   self.invalidUser = function(message){
@@ -27,9 +28,7 @@ function UserViewModel()
     self.setErrorMessage(message);
   }
 
-
-  self.init = function() {
-    window.addEventListener("DOMContentLoaded", function() {
+  self.reset = function() {
     var video = $("#video")[0],
       videoObj = { "video": true },
       errorHandler = function(error) {
@@ -38,6 +37,11 @@ function UserViewModel()
       canvas = $("#canvas")[0];
       context = canvas.getContext("2d");
       context.fillStyle = "rgba(0, 0, 200, 0.5)";
+      waitTime = 0;
+      $("input.barcode").val("");
+      self._updateWaitTime(100);
+      self.userData(null);
+      ko.cleanNode($('#identifiedUser strong'));
       if(navigator.getUserMedia) { // Standard
       navigator.getUserMedia(videoObj, function(stream) {
         video.src = stream;
@@ -46,12 +50,15 @@ function UserViewModel()
       }, errorHandler);
       } else if(navigator.webkitGetUserMedia) {
       navigator.webkitGetUserMedia(videoObj, function(stream){
-        video.src = window.webkitURL.createObjectURL(stream);
-        video.play();
-        self.processWebcamVideo(context);
-      }, errorHandler);
+          video.src = window.webkitURL.createObjectURL(stream);
+          video.play();
+          self.processWebcamVideo(context);
+        }, errorHandler);
       }        
-      }, false);
+  };
+
+  self.init = function() {
+    window.addEventListener("DOMContentLoaded", self.reset, false);
   };
 
   self.processWebcamVideo = function() {
@@ -73,7 +80,8 @@ function UserViewModel()
         type: "data", 
         image: canvas.toDataURL("image/png")
       }, self.setUserData)
-    .fail(self.invalidUser);
+    .fail(self.invalidUser)
+    .done(function() {self.focus(self.bookEl);});
   };
 
   self.reserveBook = function() {
@@ -85,15 +93,15 @@ function UserViewModel()
         employeeId: employeeId,
         isbn: isbnInput[0].value
       }, self.reserveSuccessful());
-    this.focus(this.confirmationEl);
-  }
+  };
 
   self.reserveSuccessful = function() {
     return function(message){
       self.setSuccessMessage(message);
-      $.get("/user?employee_id=" + self.userdata().employee_id, self.setUserData)
+      $.get("/user?employee_id=" + self.userData().employee_id, self.setUserData)
+        .done(function() {self.focus(self.confirmationEl); self.startTimer();});
     };
-  }
+  };
 
   self.notify = function (message, type) {
     $.notifyBar({
@@ -102,19 +110,19 @@ function UserViewModel()
       cls: type,
       animationSpeed: "normal"
     });  
-  }
+  };
 
   self.failureMessage = function(event, jqxhr, settings, exception){
     self.setErrorMessage(jqxhr.responseText);
-  }
+  };
 
   self.setErrorMessage = function(message){
     self.notify(message, "error");
-  }  
+  };  
 
   self.setSuccessMessage = function(message){
     self.notify(message, "success");
-  }  
+  };  
 
   self.highlightHelp = function() {
     var currentSection = $('div.section:visible').attr("data-section-name");
@@ -123,14 +131,33 @@ function UserViewModel()
     $("div.help .notes").each(function(index, element) {
       $(element).removeClass('active done').addClass(sectionClassNames[index]);
     });
-  }
+  };
 
   self.focus = function(section) {
+    console.log(section);
     var deFocusedElements = [self.userEl, self.bookEl, self.confirmationEl].filter(function(element) { return element != section; });
     deFocusedElements.forEach(function(element){ $(element).hide(); });
     $(section).fadeIn();
     self.highlightHelp();
     $(section).find("input.barcode").focus();
+  };
+
+  self.startTimer = function() {
+    self.timerId = setInterval($.proxy(this._updateTime, this), 100);
+  };
+  
+  self._updateWaitTime = function(value) {
+    $(this.confirmationEl).find(".progress .bar").width(value+'%');
+  };
+
+  self._updateTime = function() {
+    waitTime += 1;
+    this._updateWaitTime(100 - waitTime);
+    if (waitTime >= 105) {
+      clearInterval(self.timerId);
+      self.focus(self.userEl);
+      self.reset();
+    }
   };
 
   self.init();
